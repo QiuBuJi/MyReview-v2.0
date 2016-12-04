@@ -20,13 +20,14 @@ enum Limit
 };
 
 /*
-* 类    名：CLinkedList
-* 作    者：吴攀
-* 时    间：
-*          2016年12月3日 ~8h 创建类
-*
-* 备    注：
-*/
+ * 类    名：CLinkedList
+ * 作    者：吴攀
+ * 时    间：
+ *          2016年12月3日 ~8h 创建类
+ *          2016年12月4日 ~4h 修改CLinkedList类，完善Append、AddFirst、Insert等。
+ *
+ * 备    注：
+ */
 template<class Type>
 class CLinkedList
 {
@@ -170,6 +171,7 @@ inline bool CLinkedList<Type>::Insert(ULONG Index, const Type &Data)
 				temp = temp->Next;
 		}
 		else{
+			//TODO 待完成
 			temp = Last;//初始化为“Last-首数据”。
 			for(ULONG i = Sum; i > Index; i--)//找到“Index-下标”位置的“Type-类型”数据。
 				temp = temp->Prior;
