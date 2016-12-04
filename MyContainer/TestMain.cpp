@@ -24,6 +24,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	int b = 1;
 
+	//do you know
+
 	//ll.Append(1);
 
 
