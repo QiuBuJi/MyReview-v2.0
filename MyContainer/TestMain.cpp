@@ -14,15 +14,29 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//cn.Show();
 
 	CLinkedList<ULONG> ll;
-	ll.Insert(0, 1);
 
 	ULONG a = 10;//1000000
-	for(ULONG i = 1; i < a; i++)
-	{
-		ll.Insert(i - 1, i);
-	}
 
-	int b = 1;
+
+// 	for(ULONG i = 1; i < a; i++)
+// 	{
+// 		ll.Append(i + 1);
+// 	}
+	ll.Append('a');
+	ll.Append('b');
+	ll.Append('c');
+	ll.Append('d');
+	ll.Append('e');
+	ll.Append('f');
+	ll.Append('g');
+	ll.Append('h');
+	ll.Append('i');
+
+#define file_name L"C:/Users/Administrator/Desktop/TheData.txt"
+	ll.SaveToFile(file_name);
+	ll.Clear();
+	ll.ReadFromFile(file_name);
+	
 
 	//2016年12月4日23:24:10
 	//2016年12月5日09:35:21

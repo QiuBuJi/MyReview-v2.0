@@ -1,5 +1,7 @@
 #pragma once
 #include <windows.h>
+#ifndef LINKED_LIST
+#define LINKED_LIST
 
 //双向节点
 template<class DataType>
@@ -25,6 +27,7 @@ enum Limit
  * 时    间：
  *          2016年12月3日 ~8h 创建类
  *          2016年12月4日 ~4h 修改CLinkedList类，完善Append、AddFirst、Insert等。
+ *          2016年12月5日 ~6h 基本完成
  *
  * 备    注：
  */
@@ -65,24 +68,17 @@ public:
 	//取数据
 	virtual Type GetData(Limit Fist_Or_Last = Last);
 	//取下标
-	virtual ULONG IndexOf(const Type &Data);
-
-	//TODO: ? FindLocalData
-	virtual ULONG FindLocalData(const UINT8 &Data, ULONG offset_in_byte = 0);
-
+	virtual ULONG IndexOf(const Type &Data, ULONG StartIndex = 0);
 	//改变指定数据
 	virtual bool Replace(ULONG Index, const Type &Data);
 	//取长度
 	virtual ULONG Length();
 	//交换数据
 	virtual bool Swap(ULONG Index1, ULONG Index2);
-
-	//TODO: ? 保存数据
-
 	//保存数据到文件
-	virtual bool SaveToFile(char*_file_name);
+	virtual bool SaveToFile(TCHAR*_file_name);
 	//读数据从文件
-	virtual bool ReadFromFile(char*_file_name);
+	virtual bool ReadFromFile(TCHAR*_file_name);
 };
 #define UL_MAX     0x80000000UL  //自己看着办，这里只是提醒。加入数据太大，有可能导致崩溃！
 
@@ -171,9 +167,8 @@ inline bool CLinkedList<Type>::Insert(ULONG Index, const Type &Data)
 				temp = temp->Next;
 		}
 		else{
-			//TODO 待完成
 			temp = Last;//初始化为“Last-首数据”。
-			for(ULONG i = Sum; i > Index; i--)//找到“Index-下标”位置的“Type-类型”数据。
+			for (ULONG i = Sum - 1; i != Index; i--)//找到“Index-下标”位置的“Type-类型”数据。
 				temp = temp->Prior;
 		}
 
@@ -223,9 +218,9 @@ inline bool CLinkedList<Type>::Delete(ULONG Index)
 	CNod<Type> *temp = Home;//初始化为“Home-首数据”。
 
 	ULONG Len = Sum - 1;
-	if (Sum   == 0)return false;
-	else
-	if (Index == 0)DeleteFirst();
+	if (Sum   == 0  )return false;
+	else		    
+	if (Index == 0  )DeleteFirst();
 	else
 	if (Index == Len)DeleteLast();
 	else
@@ -251,14 +246,14 @@ bool CLinkedList<Type>::DeleteLast()
 	CNod<Type> *temp = Last;//初始化为“Last-尾数据”。
 
 	if (Last){
-		Last = Last->Prior;
-		delete temp;
-		if (Last == NULL){
+		Last = Last->Prior;//“Last-尾节点”设置到前一节点。
+		delete temp;       //删除节点
+		if (Last == NULL){ //如果为NULL，代表数据清空了。
 			Home  = NULL;
 			Sum   = 0;
 		}
 		else{
-			Last->Next = NULL;
+			Last->Next = NULL;//此时“Last-尾节点”的下一节点，已经没有了。
 			Sum--;
 		}
 	}
@@ -273,14 +268,14 @@ bool CLinkedList<Type>::DeleteFirst()
 	CNod<Type> *temp = Home;//初始化为“Home-尾数据”。
 
 	if (Home){
-		Home = Home->Next;
-		delete temp;
-		if (Home == NULL){
+		Home = Home->Next;//“Home-尾节点”设置到下一节点。
+		delete temp;       //删除节点
+		if (Home == NULL){ //如果为NULL，代表数据清空了。
 			Last  = NULL;
 			Sum   = 0;
 		}
 		else{
-			Home->Prior = NULL;
+			Home->Prior = NULL;//此时“Last-尾节点”的上一节点，已经没有了。
 			Sum--;
 		}
 	}
@@ -315,7 +310,7 @@ inline CNod<Type>* CLinkedList<Type>::GetNode(ULONG Index)
 	if (Index == Len)return Last;
 	else
 	if (Index > Len)//“Index-下标”超出“Sum-总数”范围。
-		return false;
+		return NULL;
 	else//正常删除链表
 	{
 		for (ULONG i = 0; i < Index; i++)//找到“Index-下标”位置的“Type-类型”数据。
@@ -328,7 +323,7 @@ template<class Type>
 inline Type CLinkedList<Type>::GetData(ULONG Index)
 {
 	CNod<Type> *Nod = GetNode(Index);
-	if (!Nod)
+	if (!Nod)//如果节点为空，抛出异常。
 		throw 1;
 	return Nod->Data;
 }
@@ -339,30 +334,35 @@ inline Type CLinkedList<Type>::GetData(Limit Fist_Or_Last /*= Last*/)
 	Type data;
 	switch (Fist_Or_Last)
 	{
-	case Limit::FIRST:data = GetData(0)    ; break;
+	case Limit::FIRST:data = GetData(0)      ; break;
 	case Limit::LAST :data = GetData(Sum - 1); break;
 	}
 	return data;
 }
 
 template<class Type>
-inline ULONG CLinkedList<Type>::IndexOf(const Type &Data)
+inline ULONG CLinkedList<Type>::IndexOf(const Type &Data, ULONG StartIndex)
 {
+	CNod<Type> *temp = Home;//初始化为“Home-首数据”。
 
-	return 1;
-}
-
-template<class Type>
-inline ULONG CLinkedList<Type>::FindLocalData(const UINT8 &Data, ULONG offset_in_byte /*= 0*/)
-{
-
-	return 1;
+	for (ULONG i = 0; i < StartIndex; i++)//移动到“StartIndex-开始下标”处。
+		temp = temp->Next;
+	for (ULONG i = StartIndex; i < Sum; i++)//找到“Index-下标”位置的“Type-类型”数据。
+	{
+		if (temp->Data == Data)//如果数据一致，返回下标。
+			return i; 
+		temp = temp->Next;
+	}
+	return Sum;
 }
 
 template<class Type>
 inline bool CLinkedList<Type>::Replace(ULONG Index, const Type &Data)
 {
-
+	CNod<Type> *nod = GetNode(Index);
+	if (!nod)//没找到节点
+		return false;
+	nod->Data = Data;//替换数据
 	return true;
 }
 
@@ -374,20 +374,59 @@ inline ULONG CLinkedList<Type>::Length(){
 template<class Type>
 inline bool CLinkedList<Type>::Swap(ULONG Index1, ULONG Index2)
 {
-
-	return true;
+	CNod<Type>*nod1 = GetNode(Index1);
+	CNod<Type>*nod2 = GetNode(Index2);
+	if (nod1 && nod2){//两个节点，要成功获得。
+		Type data = nod1->Data;
+		nod1->Data = nod2->Data;
+		nod2->Data = data;
+		return true;
+	}
+	return false;
 }
 
 template<class Type>
-inline bool CLinkedList<Type>::SaveToFile(char*_file_name)
+inline bool CLinkedList<Type>::SaveToFile(TCHAR*FileName)
 {
+	FILE *file = NULL;
+	int   val = _tfopen_s(&file, FileName, L"wb");//打开文件
 
-	return true;
+	if (!val && Sum > 0){           //打开成功
+		int size = sizeof Sum;
+		fwrite(&Sum, size, 1, file);//写出的Sum数量
+
+		size = sizeof Type;
+		CNod<Type> *temp = Home;       //初始化为“Home-首数据”。
+		for (ULONG i = 0; i < Sum; i++){//循环Sum次
+			fwrite(&temp->Data, size, 1, file);//写出数据
+			temp = temp->Next;
+		}
+		fclose(file);//关闭文件
+		return true;
+	}
+	return false;
 }
 
 template<class Type>
-inline bool CLinkedList<Type>::ReadFromFile(char*_file_name)
+inline bool CLinkedList<Type>::ReadFromFile(TCHAR*FileName)
 {
+	FILE *file = NULL;
+	int   val = _tfopen_s(&file, FileName, L"rb");//打开文件
+	if (!val){//打开成功
+		int Len = 0;
+		int size = sizeof Len;
+		fread_s(&Len, size, size, 1, file);//读取Sum数量
 
-	return true;
+		size = sizeof Type;
+		Type data;
+		for (ULONG i = 0; i < Len; i++){//循环Len次
+			fread_s(&data, size, size, 1, file);//读取数据
+			Append(data);
+		}
+		fclose(file);//关闭文件
+		return true;
+	}
+	return false;
 }
+
+#endif // LINKED_LIST

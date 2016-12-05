@@ -2,7 +2,8 @@
 #include "Area.h"
 #include <windows.h>
 #include "MyWnd.h"
-
+#ifndef CONTAINER
+#define CONTAINER
 
 /*
  * Àà    Ãû£ºCContainer
@@ -43,3 +44,4 @@ private:
 	void InitData();
 };
 
+#endif // CONTAINER

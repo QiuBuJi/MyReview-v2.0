@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 
+#ifndef MY_WND
+#define MY_WND
 #define CLASS_NAME L"CContainer"
 #define WINDO_NAME L"cba"
 
@@ -74,3 +76,4 @@ private:
 	//
 };
 
+#endif // MY_WND

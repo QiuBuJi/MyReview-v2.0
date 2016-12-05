@@ -2,6 +2,8 @@
 #include <windows.h>
 #include <tchar.h>
 #include <strsafe.h>
+#ifndef AREA
+#define AREA
 
 /*
  * Àà    Ãû£ºCRect
@@ -53,3 +55,4 @@ public:
 	virtual PTCHAR ToString();
 };
 
+#endif // AREA
