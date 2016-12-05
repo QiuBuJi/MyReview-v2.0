@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Container.h"
 #include "LinkedList.h"
+#include "MyBitmap.h"
 using namespace std;
 
 int WINAPI WinMain(_In_     HINSTANCE hInstance, 
@@ -16,24 +17,12 @@ int WINAPI WinMain(_In_     HINSTANCE hInstance,
 	//cn.Hide();
 	//cn.Show();
 
-	CLinkedList<char> ll;
+	CMyBitmap mBmp(hInstance);
 
-	ULONG a = 10;//1000000
+	
+	mBmp.Show();
 
-
-// 	for(ULONG i = 1; i < a; i++)
-// 	{
-// 		ll.Append(i + 1);
-// 	}
-	ll.Append('a');
-	ll.Append('b');
-	ll.Append('c');
-	ll.Append('d');
-
-	ll << 'E' << 'F';
-	ll >> 'S' >> 'B';
-
-	char da = ll[6];
+	mBmp.MessageQueue();
 
 	//2016年12月4日23:24:10
 	//2016年12月5日09:35:21
