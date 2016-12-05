@@ -62,7 +62,7 @@ public:
 
 protected:
 	//创建窗口，返回句柄。
-	void CreateWnd();
+	bool CreateWnd();
 
 private:
 	//公用的“回调函数”。

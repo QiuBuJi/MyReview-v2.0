@@ -19,9 +19,9 @@ int WINAPI WinMain(_In_     HINSTANCE hInstance,
 
 	CMyBitmap mBmp(hInstance);
 
-	
+	mBmp.SetSize({ 1280,960 });
 	mBmp.Show();
-
+	mBmp.LoadBmp(L"C:/Users/Œ‚≈ /Desktop/abc.bmp");
 	mBmp.MessageQueue();
 
 	//2016ƒÍ12‘¬4»’23:24:10

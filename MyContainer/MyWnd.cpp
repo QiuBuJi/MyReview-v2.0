@@ -85,7 +85,7 @@ void CMyWnd::InitWndData()
 	WndDataEx.lpParam      = NULL;
 }
 
-void CMyWnd::CreateWnd()
+bool CMyWnd::CreateWnd()
 {
 	RegisterClassEx(&WndClsEx);//×¢²á£¬´°¿ÚÀà¡£
 
@@ -105,6 +105,9 @@ void CMyWnd::CreateWnd()
 					WndDataEx.lpParam);
 
 	this->hWnd = hWnd;
+	if(!hWnd)
+		return false;
+	return true;
 }
 
 void CMyWnd::MessageQueue()
