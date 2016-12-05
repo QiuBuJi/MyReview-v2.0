@@ -79,6 +79,23 @@ public:
 	virtual bool SaveToFile(TCHAR*_file_name);
 	//读数据从文件
 	virtual bool ReadFromFile(TCHAR*_file_name);
+	//重载运算符 << 添加到尾
+	CLinkedList<Type>& operator<<(const Type &data){
+		Append(data);
+		return *this;
+	}
+	//重载运算符 >> 添加到首
+	CLinkedList<Type>& operator>>(const Type &data){
+		AddFirst(data);
+		return *this;
+	}
+	//重载运算符 []
+	const Type& operator[](ULONG Index){
+		CNod<Type>*nod = GetNode(Index);
+		if (!nod)
+			throw 1;
+		return nod->Data;
+	}
 };
 #define UL_MAX     0x80000000UL  //自己看着办，这里只是提醒。加入数据太大，有可能导致崩溃！
 
