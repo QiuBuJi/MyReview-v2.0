@@ -30,6 +30,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	//ll.Append(1);
 
+	//2016Äê12ÔÂ5ÈÕ10:16:00
 
 	//cn.MessageQueue();
 }
