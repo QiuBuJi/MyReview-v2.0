@@ -71,9 +71,6 @@ private:
 	void InitClsData();
 	//初始化，窗口类数据。
 	void InitWndData();
-	//
-	//
-	//
 };
 
 #endif // MY_WND

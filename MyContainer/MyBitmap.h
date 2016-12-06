@@ -9,9 +9,9 @@
 class CMyBitmap:public CMyBaseWnd
 {
 private:
-	HDC hDc    = NULL;
-	HDC hMemDc = NULL;
-	
+	HDC     hDc    = NULL;
+	HDC     hMemDc = NULL;
+	HBITMAP hBmp   = NULL;
 public:
 	CMyBitmap();
 	CMyBitmap(HINSTANCE hInstance);
@@ -19,7 +19,7 @@ public:
 
 	//加载位图
 	virtual bool LoadBmp(TCHAR *Path);
-
+	//显示窗口
 	virtual void Show(int nCmdShow = SW_NORMAL) override;
 	
 	

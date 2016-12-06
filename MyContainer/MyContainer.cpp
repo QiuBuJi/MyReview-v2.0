@@ -15,3 +15,9 @@ CMyContainer::CMyContainer(HINSTANCE hInstance, POINT position, SIZE size) : CMy
 CMyContainer::~CMyContainer()
 {
 }
+
+
+void CMyContainer::AddView(CMyArea *Area)
+{
+	Area->AreaParent = this;
+}

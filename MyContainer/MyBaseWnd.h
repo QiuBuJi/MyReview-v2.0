@@ -32,8 +32,10 @@ public:
 	virtual void Show(int nCmdShow = SW_NORMAL);
 	//隐藏窗口
 	virtual void Hide();
+	//销毁窗口
+	virtual void DestroyWnd();
 private:
-	//
+	//公用的“回调函数”。
 	static LRESULT  CALLBACK WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	//初始化
 	virtual void InitData();

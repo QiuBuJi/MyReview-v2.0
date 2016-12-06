@@ -20,7 +20,7 @@ int WINAPI WinMain(_In_     HINSTANCE hInstance,
 
 	mBmp.SetSize({ 1280,960 });
 	mBmp.Show();
-	mBmp.LoadBmp(L"C:/Users/Œ‚≈ /Desktop/abc.bmp");
+	mBmp.LoadBmp(L"C:/Users/Administrator/Desktop/src.bmp");
 	mBmp.MessageQueue();
 
 	//2016ƒÍ12‘¬4»’23:24:10

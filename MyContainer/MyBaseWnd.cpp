@@ -64,6 +64,12 @@ void CMyBaseWnd::Hide()
 		ShowWindow(hWnd, SW_HIDE);
 }
 
+void CMyBaseWnd::DestroyWnd()
+{
+	DestroyWindow(hWnd);
+	hWnd = NULL;
+}
+
 LRESULT CALLBACK CMyBaseWnd::WinProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	CMyBaseWnd *Con = NULL;

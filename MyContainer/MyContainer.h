@@ -25,6 +25,8 @@ public:
 	CMyContainer(HINSTANCE hInstance, POINT position, SIZE size);
    ~CMyContainer();
 
+   //ÃÌº” ”Õº
+   void AddView(CMyArea *Area);
 
 };
 

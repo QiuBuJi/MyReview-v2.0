@@ -1,8 +1,8 @@
 #include "MyBitmap.h"
-//#include <atlimage.h>
-//#include <afx.h>
-//#include <afxwin.h>
-//#include <afxstr.h>
+// #include <atlimage.h>
+// #include <afx.h>
+// #include <afxwin.h>
+// #include <afxstr.h>
 
 CMyBitmap::CMyBitmap(){}
 
@@ -25,10 +25,11 @@ CMyBitmap::~CMyBitmap()
 
 bool CMyBitmap::LoadBmp(TCHAR *Path)
 {
-	HBITMAP hbmp = (HBITMAP)LoadImage(hIns, Path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
+	hBmp = (HBITMAP)LoadImage(hIns, Path, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE);
 	//HBITMAP bmp = CreateCompatibleBitmap(hDc, 200, 200);
 	//SelectObject(hMemDc, hbmp);
-	SelectBitmap(hMemDc, hbmp);
+	SelectBitmap(hMemDc, hBmp);
+	
 
 	//BLENDFUNCTION bf;
 	//bf.AlphaFormat = AC_SRC_ALPHA;
@@ -42,11 +43,17 @@ bool CMyBitmap::LoadBmp(TCHAR *Path)
 	//CFile cfile;
 	//CDC dc;
 	//dc.CreateCompatibleDC(&dc);
-	
+
+
+
+
+
+
+
 
 	//BitBlt(NULL, 0, 0, 5, 5, NULL, 0, 0, SRCCOPY);
-	//StretchBlt(hDc, 0, 0, 1000, 900, hMemDc, 0, 0, 1000, 900, SRCCOPY);
-	DeleteObject(hbmp);
+	StretchBlt(hDc, 0, 0, 1000, 900, hMemDc, 0, 0, 1000, 900, SRCCOPY);
+	DeleteObject(hBmp);
 
 	return false;
 }
